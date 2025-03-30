@@ -14,12 +14,12 @@ int Problem::zaladujZadaniaPlik(const std::string& NazwaPliku) {
     }
 
     for (int i = 0; i < ile; ++i) {
-        int pj, rj, qj;
-        if (!(f >> pj >> rj >> qj)) {
+        int rj, pj, qj;
+        if (!(f >> rj >> pj >> qj)) {
             std::cerr << "Błąd odczytu danych dla zadania!" << std::endl;
             return 3;
         }
-        P.emplace_back(pj, rj, qj);
+        P.emplace_back(rj, pj, qj);
     }
 
     f.close();
@@ -28,7 +28,7 @@ int Problem::zaladujZadaniaPlik(const std::string& NazwaPliku) {
 
 void Problem::wyswietlZadania() const {
     for (const auto& zadanie : P) {
-        std::cout << "P: " << zadanie.Pj << ", R: " << zadanie.Rj << ", Q: " << zadanie.Qj << std::endl;
+        std::cout << "R: " << zadanie.Rj << ", P: " << zadanie.Pj << ", Q: " << zadanie.Qj << std::endl;
     }
 }
 
