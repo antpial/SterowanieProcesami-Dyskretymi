@@ -1,0 +1,3 @@
+/home/antek/Desktop/SPD/Zad1/CMakeFiles/zad1.dir
+/home/antek/Desktop/SPD/Zad1/CMakeFiles/edit_cache.dir
+/home/antek/Desktop/SPD/Zad1/CMakeFiles/rebuild_cache.dir
