@@ -1,4 +1,8 @@
 #include "Problem.h"
+#include "iostream"
+#include <algorithm>
+#include <vector>
+
 
 int Problem::zaladujZadaniaPlik(const std::string& NazwaPliku) {
     std::ifstream f(NazwaPliku);
@@ -26,11 +30,15 @@ int Problem::zaladujZadaniaPlik(const std::string& NazwaPliku) {
     return 0;
 }
 
+
+
 void Problem::wyswietlZadania() const {
     for (const auto& zadanie : P) {
         std::cout << "R: " << zadanie.Rj << ", P: " << zadanie.Pj << ", Q: " << zadanie.Qj << std::endl;
     }
 }
+
+
 
 int Problem::ileCzasuSort() const {
 
@@ -55,4 +63,89 @@ int Problem::ileCzasuSort() const {
         czas+= najdluzszyOgonek;
 
     return czas;
+}
+
+
+
+void Problem::sortPoR(){
+    std::sort(P.begin(), P.end(), [](const Zadanie& a, const Zadanie& b) {
+        return a.Rj < b.Rj; 
+    });
+}
+
+
+
+void Problem::sortPoQ(){
+    std::sort(P.begin(), P.end(), [](const Zadanie& a, const Zadanie& b) {
+        return a.Qj > b.Qj; 
+    });
+}
+
+
+void Problem::sortPrzegZup(){
+
+    int najszybciej = ileCzasuSort();
+    std::vector<Zadanie> Najszybszy;
+    std::vector<Zadanie> buff;
+
+    Najszybszy = P;
+    buff = P;
+
+    // Tworzymy wektor indeksów pomocniczych
+    std::vector<int> indices(P.size());
+    for (int i = 0; i < P.size(); ++i) {
+        indices[i] = i;
+    }
+
+    do {
+        for (int i = 0; i < P.size(); ++i) {
+            buff[i] = P[indices[i]];
+        }
+
+        P = buff;
+        if(ileCzasuSort() < najszybciej){
+            Najszybszy = P;
+            najszybciej = ileCzasuSort();
+            std::cout << ileCzasuSort() << "\n";
+        }
+
+    } while (std::next_permutation(indices.begin(), indices.end()));
+
+    P = Najszybszy;
+}
+
+
+
+void Problem::sortShrage(){
+
+    std::vector<Zadanie> N;
+    std::vector<Zadanie> G;
+    std::vector<Zadanie> nowyP;
+    int t = 0;
+
+    N=P;
+
+    while(!G.empty() || !N.empty()){
+
+        //dodaje z N do G
+        for(int i=0; i<N.size(); i++){
+            if(N[i].Rj == t){
+                G.push_back(N[i]);
+                N.erase(N.begin() + i);
+                --i;
+            }
+        }
+        t++;
+
+        //Sortuje po Q
+        std::sort(G.begin(), G.end(), [](const Zadanie& a, const Zadanie& b) {
+            return a.Qj > b.Qj; 
+        });
+
+        //Dodaje do nowego P
+        nowyP.insert(nowyP.end(), G.begin(), G.end());
+        G.clear();
+    }
+
+    P = nowyP;
 }

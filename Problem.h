@@ -11,4 +11,9 @@ public:
     int zaladujZadaniaPlik(const std::string& NazwaPliku);
     void wyswietlZadania() const;
     int ileCzasuSort() const;
+
+    void sortPoR();
+    void sortPoQ();
+    void sortPrzegZup();
+    void sortShrage();
 };
