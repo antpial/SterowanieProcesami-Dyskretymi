@@ -16,4 +16,5 @@ public:
     void sortPoQ();
     void sortPrzegZup();
     void sortShrage();
+    void sortWlasne();
 };

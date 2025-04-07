@@ -149,3 +149,13 @@ void Problem::sortShrage(){
 
     P = nowyP;
 }
+
+
+// sortowanie po R+Q
+void Problem::sortWlasne(){
+
+    std::sort(P.begin(), P.end(), [](const Zadanie& a, const Zadanie& b) {
+        return a.Qj + a.Rj < b.Qj + b.Rj; 
+    });
+
+}
