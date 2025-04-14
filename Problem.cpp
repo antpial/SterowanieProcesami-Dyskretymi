@@ -116,39 +116,44 @@ void Problem::sortPrzegZup(){
 
 
 
-void Problem::sortShrage(){
-
-    std::vector<Zadanie> N;
+void Problem::sortShrage() {
+    std::vector<Zadanie> N = P;
     std::vector<Zadanie> G;
     std::vector<Zadanie> nowyP;
+
     int t = 0;
 
-    N=P;
+    // posortuj N po r_j rosnąco
+    std::sort(N.begin(), N.end(), [](const Zadanie& a, const Zadanie& b) {
+        return a.Rj < b.Rj;
+    });
 
-    while(!G.empty() || !N.empty()){
-
-        //dodaje z N do G
-        for(int i=0; i<N.size(); i++){
-            if(N[i].Rj == t){
-                G.push_back(N[i]);
-                N.erase(N.begin() + i);
-                --i;
-            }
+    while (!G.empty() || !N.empty()) {
+        // Przenoszenie zadań dostępnych w czasie t z N do G
+        while (!N.empty() && N.front().Rj <= t) {
+            G.push_back(N.front());
+            N.erase(N.begin());
         }
-        t++;
 
-        //Sortuje po Q
-        std::sort(G.begin(), G.end(), [](const Zadanie& a, const Zadanie& b) {
-            return a.Qj > b.Qj; 
-        });
+        if (!G.empty()) {
+            // Szukamy zadania o największym q_j
+            auto it = std::max_element(G.begin(), G.end(), [](const Zadanie& a, const Zadanie& b) {
+                return a.Qj < b.Qj;
+            });
 
-        //Dodaje do nowego P
-        nowyP.insert(nowyP.end(), G.begin(), G.end());
-        G.clear();
+            Zadanie e = *it;
+            G.erase(it);
+            nowyP.push_back(e);
+            t += e.Pj;
+        } else {
+            // Przeskocz czas do najbliższego zadania
+            t = N.front().Rj;
+        }
     }
 
     P = nowyP;
 }
+
 
 
 // sortowanie po R+Q

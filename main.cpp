@@ -6,7 +6,7 @@
 
 #include "Problem.h"
 
-#define NAZWA_PLIKU "tests/SCHRAGE1.dat"
+#define NAZWA_PLIKU "tests/SCHRAGE9.dat"
 
 
 int main() {
@@ -56,14 +56,14 @@ int main() {
     std::cout << "\nCzas liczenia: " << std::chrono::duration<double, std::milli>(end - start).count() << "[ms]\n";
 
 
-    // Przeglad Zupelny
-    start = std::chrono::high_resolution_clock::now();
-    problem.sortPrzegZup();
-    end = std::chrono::high_resolution_clock::now();
-    std::cout << "Najlepsza konfiguracja: \n";
-    problem.wyswietlZadania();
-    std::cout << "\nCzas po sortowaniu w przegladzie zupelnym: " << problem.ileCzasuSort() << "\n";
-    std::cout << "\nCzas liczenia: " << std::chrono::duration<double, std::milli>(end - start).count() << "[ms]\n";
+    // // Przeglad Zupelny
+    // start = std::chrono::high_resolution_clock::now();
+    // problem.sortPrzegZup();
+    // end = std::chrono::high_resolution_clock::now();
+    // std::cout << "Najlepsza konfiguracja: \n";
+    // problem.wyswietlZadania();
+    // std::cout << "\nCzas po sortowaniu w przegladzie zupelnym: " << problem.ileCzasuSort() << "\n";
+    // std::cout << "\nCzas liczenia: " << std::chrono::duration<double, std::milli>(end - start).count() << "[ms]\n";
 
 
     // SHRAGE
